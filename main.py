@@ -37,11 +37,11 @@ import threading
 string_handling_lock=threading.Lock()
 grand_lock_handling_lock=threading.Lock()
 grand_lock=threading.Semaphore(value=2)
-shift_lock=threading.Lock()
-shift_cancelled = {
-    keyboard.Key.shift_l:0,
-    keyboard.Key.shift_r:0,
-}
+shift_lock=threading.Lock() #not really used
+#shift_cancelled = {
+#    keyboard.Key.shift_l:0,
+#    keyboard.Key.shift_r:0,
+#}
 
 #hot_tokes
 
@@ -53,18 +53,25 @@ import tkinter as tk
 
 window = tk.Tk()
 window.overrideredirect(True)
-window.geometry("1000x100")
+#window.geometry("2400x400")
 window.wait_visibility(window)
-window.wm_attributes('-alpha',0.6)
+window.wm_attributes('-alpha',0.5)
 #https://stackoverflow.com/questions/18394597/is-there-a-way-to-create-transparent-windows-with-tkinter
 #window.attributes('-alpha', 0.1)
 splash_label= tk.Label(window,
     text= "", #"Hello World!",
     #fg= "green",
-    font= ('Droid Sans', 20)
+    font= ('Droid Sans', 50)
     )#.pack(pady=1)
 splash_label.pack()
 #splash_label = tx.Text(exportselection=0, font=('Droid Sans', 20))
+
+def center_window(win):
+    width = win.winfo_screenwidth()//2 #2400
+    height = win.winfo_screenheight()//8 #400
+    x = (win.winfo_screenwidth() - width) // 2
+    y = (win.winfo_screenheight() - height) // 2
+    win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
 
 async def main():
@@ -112,7 +119,8 @@ async def main():
                 caught = json.loads(xs[1]["value"])
                 if xs[0]["value"] == "onstart":
                     print("START!")
-                    window.eval('tk::PlaceWindow . center')
+                    #window.eval('tk::PlaceWindow . center')
+                    center_window(window)
                     splash_label.config(text='')
                     window.deiconify() #It is OK called here but not in the keydown callback
                     window.update() # The window does not need to handle user input
@@ -140,7 +148,8 @@ async def main():
                             #    keyboard.Key.shift_r]) #inaccurate
                             #assert(not shift_up)
                             for c in s:
-                                #time.sleep(0)
+                                #if ' ' == c: time.sleep(0.01)
+                                time.sleep(0.005)
                                 #shift_up = keys_down.isdisjoint([
                                 #    keyboard.Key.shift_l,
                                 #    keyboard.Key.shift_r]) #inaccurate
@@ -233,7 +242,7 @@ async def main():
                             print(old_string)
                             print(new_string)
                             print(common_prefix_length)
-                            print(shift_cancelled)
+                            #print(shift_cancelled)
                             #shift_cancelled[keyboard.Key.shift_l] = 1
                             #shift_cancelled[keyboard.Key.shift_r] = 1
                             #kc.release(keyboard.Key.shift_l.value) #strange silent fatal error!
@@ -425,11 +434,15 @@ async def main():
         #if x == keyboard.Key.cmd: lock_off()
         if(x in [keyboard.Key.shift_l,keyboard.Key.shift_r]):
             with shift_lock:
-                if shift_cancelled[x]>0:
-                    print('SKIP ONE UP', x)
-                    shift_cancelled[x] -= 1
-                else:
-                    lock_off()
+                #if {keyboard.Key.shift_l,keyboard.Key.shift_r}.isdisjoint(keys_down):
+                #    for k in list(keys_down):
+                #        kc.release(k)
+                #if shift_cancelled[x]>0:
+                #    print('SKIP ONE UP', x)
+                #    shift_cancelled[x] -= 1
+                #else:
+                #    lock_off()
+                lock_off()
         hotkey.release(x)
         #print("UP",x)#.__dict__,keys_down)
         print("UP",x,keys_down)

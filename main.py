@@ -148,8 +148,8 @@ async def main():
                             #    keyboard.Key.shift_r]) #inaccurate
                             #assert(not shift_up)
                             for c in s:
-                                #if ' ' == c: time.sleep(0.01)
-                                time.sleep(0.005)
+                                if ' ' == c: time.sleep(0.005)
+                                else: time.sleep(0.003)
                                 #shift_up = keys_down.isdisjoint([
                                 #    keyboard.Key.shift_l,
                                 #    keyboard.Key.shift_r]) #inaccurate

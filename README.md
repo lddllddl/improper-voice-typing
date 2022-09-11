@@ -6,4 +6,5 @@ this-is-a-utility-to enableVoiceTypingOnLinux AND-IN-PARTICULAR Precise.Control.
 WITHOUTTOOMUCHEFFORT.
 
 ## Your code is shit. How could it even be maintained?
-Indeed. And it's fair enough that I have been using it daily, which is my original goal. You're more than welcome to contribute, to try it out on your own machine, or to register interest in any other way.
+Indeed. It has performed stable enough during my daily use that I haven't felt too much things to maintain for. For substantial improvement (i.e. faster typing), I would go with a local recognition engine (e.g. Kaldi) and a very different way of interaction (I am considering a flight rudder), and overall a totally new technical solution. 
+Should you find this existing solution could use some improvements, you're more than welcome to contribute, to try it out on your own machine, or to register interest in any other way.

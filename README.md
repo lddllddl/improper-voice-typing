@@ -1,5 +1,5 @@
 # improper-voice-typing
-Voice typing on Linux (or more precisely Xorg) by abusing Chrome/Chromium.
+Voice typing on Linux (or more precisely Xorg) by abusing Chrome/Chromium. A bad solution that actually works.
 
 ## What is this for?
 this-is-a-utility-to enableVoiceTypingOnLinux AND-IN-PARTICULAR Precise.Control.Of.Cases to_be_used_in_everyday_programming, LIKE_WHAT_YOU_HAVE_JUST_READ,

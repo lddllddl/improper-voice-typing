@@ -9,6 +9,7 @@ from pynput._util.xorg import display_manager
 import time
 
 import os
+import re
 
 #a = [keyboard.Key.ctrl,keyboard.Key.alt,'h'] #Wrong!
 #a = [keyboard.Key.ctrl,keyboard.Key.alt,keyboard.KeyCode.from_char('h')] #Wrong!
@@ -95,6 +96,7 @@ async def main():
         )
     #await browser._connection
     page = await browser.newPage()
+    await page.goto('https://www.google.com') #about:config no longer permitted with updated chromium
     #page = await (await browser.createIncognitoBrowserContext()).newPage()
 
     import json
@@ -149,7 +151,7 @@ async def main():
                             #assert(not shift_up)
                             for c in s:
                                 if ' ' == c: time.sleep(0.005)
-                                else: time.sleep(0.003)
+                                else: time.sleep(0.004)
                                 #shift_up = keys_down.isdisjoint([
                                 #    keyboard.Key.shift_l,
                                 #    keyboard.Key.shift_r]) #inaccurate
@@ -192,8 +194,11 @@ async def main():
                     leftSs = ([r[str(i)]["0"]['transcript'] for i in range(n_finals)])
                     rightSs = ([r[str(i)]["0"]['transcript'] for i in range(n_finals,r["length"])])
                     #leftWs,rightWs = ([s.strip().split(' ') for s in ss] for ss in [leftSs,rightSs]) 
-                    leftWs,rightWs = ([w for s in ss for w in s.strip().split(' ') ]
-                        for ss in [leftSs,rightSs]) 
+                    leftWs,rightWs = ([
+                        w for s in ss for w in
+                        #s.strip().split(' ')
+                        re.split('[-_.,\s]+',s.strip())
+                        ] for ss in [leftSs,rightSs]) 
                     print(leftWs)
                     print(rightWs)
                     #volatility[0] += leftWs

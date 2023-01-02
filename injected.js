@@ -1,3 +1,5 @@
+document.body.innerHTML=''; //load www.google.com but removes all contents
+
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var recognition = new SpeechRecognition();
 
